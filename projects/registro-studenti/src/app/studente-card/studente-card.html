@@ -1,0 +1,27 @@
+<!--
+  PASSO 7 — studente-card.html
+  TRACCIA 03.14: la card mostra nome, classe e media (verde da 6 in su, rossa
+  sotto) e, SOLO se azioni() è true, un pulsante che avvisa il padre.
+-->
+<div class="card-body">
+  <h5 class="card-title">{{ studente().nome }}</h5>
+  <p class="card-text">
+    Classe {{ studente().classe }}, media
+    <strong
+      [class.text-success]="studente().mediaVoti >= 6"
+      [class.text-danger]="studente().mediaVoti < 6"
+    >
+      {{ studente().mediaVoti }}
+    </strong>
+  </p>
+
+  <!--
+    azioni() vale false quando il padre scrive [azioni]="false" (Home):
+    in quel caso il blocco non viene renderizzato e il pulsante non esiste.
+  -->
+  @if (azioni()) {
+    <button type="button" class="btn btn-sm btn-outline-danger" (click)="rimuovi()">
+      Rimuovi dal registro
+    </button>
+  }
+</div>

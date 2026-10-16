@@ -1,0 +1,34 @@
+<!--
+  PASSO 3 + PASSO 7 — home.html
+  TRACCIA 03.14: «La home usa il servizio per mostrare il numero di studenti.
+  Il riquadro grande in cima è il modo di Bootstrap 5 per ottenere l'effetto
+  del vecchio "jumbotron"»: è la combinazione p-5 + bg-body-tertiary + rounded-3.
+
+  `{{ studentiService.numero() }}` legge il computed del servizio: quando
+  cambiano i dati, questo numero si aggiorna da solo, anche se siamo in un'altra
+  pagina ad aggiungere o eliminare studenti.
+-->
+<div class="p-5 mb-4 bg-body-tertiary rounded-3">
+  <h1>Registro degli studenti</h1>
+  <p class="lead">Studenti registrati: {{ studentiService.numero() }}</p>
+  <a class="btn btn-primary" routerLink="/elenco">Vai all'elenco</a>
+  <a class="btn btn-outline-primary ms-2" routerLink="/inserimento">Nuovo studente</a>
+</div>
+
+<!--
+  PASSO 7 — La card riutilizzata nella PRIMA delle due pagine.
+  TRACCIA 03.14: «Il primo uso è nella home, per mostrare lo studente con la
+  media più alta, senza pulsante.»
+
+  @if (...; as m) assegna il risultato a una variabile di template `m` e
+  mostra il blocco solo se il valore è "truthy": se il registro è vuoto,
+  migliore() è undefined e non si disegna nulla.
+
+  [azioni]="false" richiede le QUADRE: senza, il figlio riceverebbe la stringa
+  "false" (che è truthy!) invece del booleano false. Con le quadre Angular
+  passa il valore booleano e il pulsante non compare.
+-->
+@if (studentiService.migliore(); as m) {
+  <h2 class="h4">La media più alta</h2>
+  <app-studente-card [studente]="m" [azioni]="false" />
+}

@@ -1,0 +1,73 @@
+<!--
+  Riepilogo — riepilogo.html (dispensa 03.13 + Prova tu 2 e 3)
+
+  TRACCIA: «@if (ordine.elenco().length === 0) ... L'ordine è vuoto: scegli dal
+  menu.» => primo stato, con il link che porta al menu.
+-->
+<h2>Il tuo ordine</h2>
+
+@if (ordine.elenco().length === 0) {
+  <p>L'ordine è vuoto: <a routerLink="/menu">scegli dal menu</a>.</p>
+} @else {
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Piatto</th>
+        <th>Quantità</th>
+        <th>Subtotale</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (r of ordine.elenco(); track r.piatto.id) {
+        <tr>
+          <td>{{ r.piatto.nome }}</td>
+          <td>{{ r.quantita }}</td>
+          <!-- TRACCIA: «(r.piatto.prezzo * r.quantita).toFixed(2) }} €» -->
+          <td>{{ (r.piatto.prezzo * r.quantita).toFixed(2) }} €</td>
+          <td>
+            <!--
+              PROVA TU 2 — il pulsante -1 chiama togliUno: diminuisce di 1 la
+              quantità e, se arriva a zero, il servizio rimuove la riga.
+            -->
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              (click)="ordine.togliUno(r.piatto.id)"
+            >
+              -1
+            </button>
+            <!-- TRACCIA: il pulsante Togli toglie la riga intera. -->
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger ms-1"
+              (click)="ordine.rimuovi(r.piatto.id)"
+            >
+              Togli
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- TRACCIA: «Totale: {{ ordine.totale().toFixed(2) }} €» -->
+  <p class="fs-5">Totale: <strong>{{ ordine.totale().toFixed(2) }} €</strong></p>
+
+  <!--
+    PROVA TU 3 — piattoPiuOrdinato mostrato con @if (...; as r).
+    Il computed restituisce una RigaOrdine oppure undefined: la variabile di
+    template `r` esiste solo nel ramo "trovato", quindi dentro il blocco `r`
+    è una riga valida e non serve nessun controllo aggiuntivo.
+  -->
+  @if (ordine.piattoPiuOrdinato(); as r) {
+    <p class="text-body-secondary">
+      Il piatto più ordinato è <strong>{{ r.piatto.nome }}</strong> con
+      {{ r.quantita }} pezzi.
+    </p>
+  }
+
+  <button type="button" class="btn btn-outline-secondary" (click)="ordine.svuota()">
+    Svuota l'ordine
+  </button>
+}

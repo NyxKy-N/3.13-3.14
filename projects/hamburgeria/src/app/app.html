@@ -1,0 +1,26 @@
+<!--
+  app.html — la barra con il badge (dispensa 03.13)
+  TRACCIA: «l'etichetta nella barra cresce subito ... {{ ordine.numeroPezzi() }}».
+  bg-dark + data-bs-theme="dark": testi chiari sul fondo scuro.
+-->
+<nav class="navbar navbar-expand bg-dark mb-4" data-bs-theme="dark">
+  <div class="container">
+    <span class="navbar-brand">Hamburgeria</span>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/menu" routerLinkActive="active">Menu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/riepilogo" routerLinkActive="active">
+          Il tuo ordine
+          <!-- numeroPezzi() è un computed del servizio: si ricalcola da solo -->
+          <span class="badge text-bg-warning">{{ ordine.numeroPezzi() }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container">
+  <router-outlet />
+</main>

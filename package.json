@@ -1,0 +1,37 @@
+{
+  "name": "registro-studenti-workspace",
+  "version": "0.0.0",
+  "description": "LAB 03.14 - Il registro degli studenti (workspace Angular principale). L'esercizio TEO 03.13 (hamburgeria) vive in projects/hamburgeria con il suo angular.json.",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "start:registro": "ng serve registro-studenti --port 4200",
+    "start:hamburgeria": "cd projects/hamburgeria && ng serve --port 4300",
+    "build": "ng build registro-studenti && cd projects/hamburgeria && ng build",
+    "test": "ng test --watch=false",
+    "test:registro": "ng test --project registro-studenti --watch=false",
+    "test:hamburgeria": "cd projects/hamburgeria && ng test --watch=false"
+  },
+  "private": true,
+  "packageManager": "npm@11.7.0",
+  "dependencies": {
+    "@angular/common": "^22.2.3",
+    "@angular/compiler": "^22.2.3",
+    "@angular/core": "^22.2.3",
+    "@angular/forms": "^22.2.3",
+    "@angular/platform-browser": "^22.2.3",
+    "@angular/router": "^22.2.3",
+    "bootstrap": "^5.3.8",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.2.3",
+    "@angular/cli": "^22.2.3",
+    "@angular/compiler-cli": "^22.2.3",
+    "jsdom": "^28.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.3",
+    "vitest": "^4.0.8"
+  }
+}

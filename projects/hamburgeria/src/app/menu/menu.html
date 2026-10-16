@@ -1,0 +1,22 @@
+<!--
+  Menu — menu.html (dispensa 03.13)
+  TRACCIA: «{{ p.prezzo.toFixed(2) }} €» e il badge verde con la quantità già
+  nell'ordine. toFixed(2) scrive il prezzo con due decimali ("8.50 €").
+-->
+<h2>Menu</h2>
+
+<ul class="list-group">
+  @for (p of piatti; track p.id) {
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>
+        {{ p.nome }} <small class="text-body-secondary">{{ p.prezzo.toFixed(2) }} €</small>
+
+        <!-- Il badge compare SOLO se il piatto è già nell'ordine. -->
+        @if (quantitaDi(p) > 0) {
+          <span class="badge text-bg-success ms-2">{{ quantitaDi(p) }} nell'ordine</span>
+        }
+      </span>
+      <button type="button" class="btn btn-sm btn-primary" (click)="aggiungi(p)">Aggiungi</button>
+    </li>
+  }
+</ul>

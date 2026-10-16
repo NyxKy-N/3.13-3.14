@@ -1,0 +1,58 @@
+<!--
+  PASSO 6 — inserimento.html
+
+  TRACCIA 03.14, tre punti chiave:
+  1) «Dentro un <form>, ogni campo con [(ngModel)] deve avere l'attributo name»
+     => name="nome", name="classe", name="media". Senza, la console segnala
+     NG01352: If ngModel is used within a form tag, either the name attribute
+     must be set...
+  2) #modulo="ngForm" => variabile di template che punta all'oggetto di
+     controllo del form, NON all'elemento HTML. modulo.invalid è true quando
+     almeno un campo viola le sue regole (required, min, max).
+  3) (ngSubmit) => scatta sia con type="submit" sia con Invio in un campo,
+     senza ricaricare la pagina (nessun action/method, nessun reload).
+-->
+<h2>Nuovo studente</h2>
+
+<form #modulo="ngForm" (ngSubmit)="salva()" class="p-4 bg-body-tertiary rounded-3">
+  <div class="mb-3">
+    <label for="nome" class="form-label">Nome e cognome</label>
+    <!-- required => il form resta invalido finché il campo è vuoto -->
+    <input id="nome" name="nome" class="form-control" [(ngModel)]="nome" required />
+  </div>
+
+  <div class="mb-3">
+    <label for="classe" class="form-label">Classe</label>
+    <input id="classe" name="classe" class="form-control" [(ngModel)]="classe" required />
+  </div>
+
+  <div class="mb-3">
+    <label for="media" class="form-label">Media dei voti</label>
+    <!--
+      TRACCIA 03.14 (Risultato atteso): «con il nome vuoto o una media di 11 il
+      pulsante Salva è grigio».
+      Le regole che rendono il form invalido sono: required (campo obbligatorio),
+      min="1" e max="10" ( valori ammessi per un campo numerico),
+      step="0.1" (incremento consentito).
+      type="number" mostra i controlli numerici del browser.
+    -->
+    <input
+      id="media"
+      name="media"
+      type="number"
+      class="form-control"
+      [(ngModel)]="media"
+      required
+      min="1"
+      max="10"
+      step="0.1"
+    />
+  </div>
+
+  <!--
+    TRACCIA: «Il pulsante resta disabilitato finché il form non è valido.»
+    [disabled]="modulo.invalid" => il pulsante è grigio e non cliccabile
+    finché una delle regole sopra non è rispettata.
+  -->
+  <button type="submit" class="btn btn-primary" [disabled]="modulo.invalid">Salva</button>
+</form>

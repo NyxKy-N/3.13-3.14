@@ -1,0 +1,11 @@
+{
+  "name": "hamburgeria",
+  "version": "0.0.0",
+  "description": "TEO 03.13 - Servizi e dependency injection: l'hamburgeria. Workspace Angular autonomo; le dipendenze sono installate una sola volta nella cartella superiore (../../node_modules).",
+  "private": true,
+  "scripts": {
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test --watch=false"
+  }
+}

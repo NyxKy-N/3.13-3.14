@@ -1,0 +1,31 @@
+<!--
+  PASSO 3 — Il menu (src/app/app.html)
+  TRACCIA 03.14: «barra blu con tre voci».
+
+  data-bs-theme="dark" è il modo di Bootstrap 5.3 per far leggere i testi
+  chiari sopra il fondo blu (bg-primary).
+-->
+<nav class="navbar navbar-expand bg-primary mb-4" data-bs-theme="dark">
+  <div class="container">
+    <span class="navbar-brand">Registro</span>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <!-- routerLinkActive="active" evidenzia la voce della pagina corrente -->
+        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/elenco" routerLinkActive="active">Elenco</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/inserimento" routerLinkActive="active"
+          >Nuovo studente</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container pb-4">
+  <!-- Qui il router monta la pagina richiesta dall'URL -->
+  <router-outlet />
+</main>

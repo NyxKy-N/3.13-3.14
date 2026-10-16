@@ -1,0 +1,6 @@
+﻿/* Stili specifici di questo componente.
+   Non ne servono: l'aspetto e' interamente affidato a Bootstrap 5.3.8,
+   registrato in angular.json fra gli styles globali. Il file esiste perche'
+   il componente lo dichiara con styleUrl, e resta il posto giusto per
+   eventuali ritocchi futuri (lo stile qui e' incapsulato nel componente).
+*/

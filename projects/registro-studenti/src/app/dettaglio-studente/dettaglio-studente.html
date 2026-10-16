@@ -1,0 +1,22 @@
+<!--
+  PASSO 8 — dettaglio-studente.html
+
+  @if (studente(); as s) mostra il blocco solo quando il signal contiene uno
+  studente: la variabile di template `s` è lo studente non-undefined, così nel
+  blocco non servono controlli aggiuntivi.
+
+  (rimosso)="rimuovi($event)" collega l'OUTPUT della card a un metodo del padre:
+  è il padre che decide che cosa fare (TRACCIA Passo 7).
+-->
+@if (studente(); as s) {
+  <h2>Scheda dello studente</h2>
+
+  <app-studente-card [studente]="s" (rimosso)="rimuovi($event)" />
+
+  <div class="mt-3">
+    <a class="btn btn-outline-secondary" routerLink="/elenco">Torna all'elenco</a>
+    <button type="button" class="btn btn-primary ms-2" (click)="successivo()">
+      Studente successivo
+    </button>
+  </div>
+}

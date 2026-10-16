@@ -1,0 +1,127 @@
+<!--
+  PASSO 4 + PASSO 5 + PROVA TU 1-3 — elenco.html
+
+  TRACCIA 03.14 (Passo 4): «[class.text-success] e [class.text-danger] accendono
+  l'una o l'altra classe di Bootstrap in base alla media: verde da 6 in su,
+  rosso sotto.»
+-->
+<h2>Elenco degli studenti</h2>
+
+<!--
+  PASSO 5 — TRACCIA: «Nel template aggiungi il campo dopo il titolo».
+  [(ngModel)]="filtroClasse" è una "banana in a box": la combinazione di
+  [ngModel] (da TS a HTML) e (ngModelChange) (da HTML a TS).
+  Il campo NON sta in un <form>, quindi l'attributo name non è richiesto.
+-->
+<div class="row g-2 align-items-center mb-3">
+  <div class="col-auto">
+    <label for="filtro" class="col-form-label">Filtra per classe</label>
+  </div>
+  <div class="col-auto">
+    <input id="filtro" class="form-control" [(ngModel)]="filtroClasse" placeholder="es. 4B" />
+  </div>
+</div>
+
+<!--
+  PROVA TU — LIVELLO 2 (Ordinamento): due pulsanti che impostano il signal
+  `ordine`. Il terzo pulsante riporta all'ordine di inserimento.
+  [class.active] evidenzia il criterio attivo.
+-->
+<div class="btn-group btn-group-sm mb-3" role="group" aria-label="Ordina l'elenco">
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    [class.active]="ordine() === 'nome'"
+    (click)="ordine.set('nome')"
+  >
+    Per nome
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    [class.active]="ordine() === 'media'"
+    (click)="ordine.set('media')"
+  >
+    Per media
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    [class.active]="ordine() === 'nessuno'"
+    (click)="ordine.set('nessuno')"
+  >
+    Per inserimento
+  </button>
+</div>
+
+<!--
+  PASSO 5 — TRACCIA: «racchiudi la tabella in un @if; il ciclo ora usa filtrati()».
+  Se il filtro non trova nulla si mostra l'avviso giallo; se non c'è filtro e la
+  lista è vuota si dice che il registro è vuoto (sono due casi diversi).
+-->
+@if (filtrati().length === 0) {
+  <div class="alert alert-warning">
+    @if (filtroClasse()) {
+      Nessuno studente trovato per la classe {{ filtroClasse() }}
+    } @else {
+      Il registro è vuoto.
+    }
+  </div>
+} @else {
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Classe</th>
+        <th>Media</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- `track s.id` dice ad Angular come identificare ogni riga: così non
+           ricostruisce tutte le righe a ogni cambiamento del filtro. -->
+      @for (s of visibili(); track s.id) {
+        <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.nome }}</td>
+          <td>{{ s.classe }}</td>
+          <!-- TRACCIA: verde da 6 in su, rosso sotto -->
+          <td [class.text-success]="s.mediaVoti >= 6" [class.text-danger]="s.mediaVoti < 6">
+            {{ s.mediaVoti }}
+          </td>
+          <td class="text-end">
+            <!-- PASSO 8 — TRACCIA: link al dettaglio con l'id nella rotta -->
+            <a class="btn btn-sm btn-outline-primary" [routerLink]="['/elenco', s.id]">Dettaglio</a>
+            <!-- PROVA TU livello 3 — TRACCIA: «il link Modifica con
+                 [routerLink]="['/modifica', s.id]"» -->
+            <a class="btn btn-sm btn-outline-secondary ms-1" [routerLink]="['/modifica', s.id]"
+              >Modifica</a
+            >
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger ms-1"
+              (click)="rimuovi(s.id)"
+            >
+              Elimina
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!--
+    PROVA TU — LIVELLO 1 (Media della classe).
+    TRACCIA: «mostrala sotto la tabella con due decimali (toFixed(2))».
+    toFixed restituisce una stringa: {{ ... }} la stampa così com'è.
+    Filtrando 4A compare "Media della classe 4A: 7.30".
+  -->
+  <p class="text-body-secondary">
+    Media della classe @if (filtroClasse()) {
+      <strong>{{ filtroClasse() }}</strong>
+    } @else {
+      <strong>(tutti)</strong>
+    }: {{ mediaClasse().toFixed(2) }} su {{ filtrati().length }} studenti
+  </p>
+}
